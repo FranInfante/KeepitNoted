@@ -1,22 +1,25 @@
 import { useState } from "react";
 
-type Task = { topic: string; task: string; completed: boolean };
+type Task = { task: string; completed: boolean };
 
 type TaskModalProps = {
-    tasks: Task[];
-    listName: string;
-    closeModal: () => void;
-    updateTasks: (tasks: Task[]) => void;
-  };
+  tasks: Task[];
+  listName: string;
+  closeModal: () => void;
+  updateTasks: (tasks: Task[]) => void;
+};
 
-function TaskModal({ tasks, listName, closeModal, updateTasks }: TaskModalProps) {
-  const [newTaskTopic, setNewTaskTopic] = useState("");
+function TaskModal({
+  tasks,
+  listName,
+  closeModal,
+  updateTasks,
+}: TaskModalProps) {
   const [newTaskContent, setNewTaskContent] = useState("");
 
   const addTask = () => {
-    if (!newTaskTopic.trim() || !newTaskContent.trim()) return;
-    updateTasks([...tasks, { topic: newTaskTopic, task: newTaskContent, completed: false }]);
-    setNewTaskTopic("");
+    if (!newTaskContent.trim()) return;
+    updateTasks([...tasks, { task: newTaskContent, completed: false }]);
     setNewTaskContent("");
   };
 
@@ -35,21 +38,13 @@ function TaskModal({ tasks, listName, closeModal, updateTasks }: TaskModalProps)
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="absolute inset-0 bg-gray-800 opacity-75" onClick={closeModal}></div>
+      <div
+        className="absolute inset-0 bg-gray-800 opacity-75"
+        onClick={closeModal}
+      ></div>
       <div className="bg-white text-gray-900 p-6 rounded-lg shadow-lg max-w-md w-full z-10">
         <h2 className="text-xl font-bold mb-4">{listName} To-Do List</h2>
         <div className="mb-4">
-          <label htmlFor="topic" className="block text-gray-700 font-bold mb-2">
-            Topic
-          </label>
-          <input
-            type="text"
-            id="topic"
-            className="w-full px-3 py-2 border rounded mb-4 text-gray-900"
-            placeholder="Enter a topic..."
-            value={newTaskTopic}
-            onChange={(e) => setNewTaskTopic(e.target.value)}
-          />
           <label htmlFor="task" className="block text-gray-700 font-bold mb-2">
             Task
           </label>
@@ -81,7 +76,6 @@ function TaskModal({ tasks, listName, closeModal, updateTasks }: TaskModalProps)
                 className="cursor-pointer flex-grow"
                 onClick={() => toggleTask(index)}
               >
-                <p className="text-sm text-gray-400">{task.topic}</p>
                 <p className={`${task.completed ? "line-through" : ""}`}>
                   {task.task}
                 </p>

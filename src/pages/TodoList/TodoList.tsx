@@ -8,7 +8,7 @@ function TodoList() {
   const [todoLists, setTodoLists] = useState<
     {
       name: string;
-      tasks: { topic: string; task: string; completed: boolean }[];
+      tasks: {task: string; completed: boolean }[];
     }[]
   >([]);
   const [currentListIndex, setCurrentListIndex] = useState<number | null>(null);
@@ -49,7 +49,7 @@ function TodoList() {
   };
 
   const updateTasks = (
-    tasks: { topic: string; task: string; completed: boolean }[]
+    tasks: { task: string; completed: boolean }[]
   ) => {
     if (currentListIndex !== null) {
       const updatedLists = [...todoLists];

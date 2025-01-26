@@ -20,12 +20,18 @@ function Journal() {
   useEffect(() => {
     const savedEntries = localStorage.getItem("journalEntries");
     if (savedEntries) {
+      console.log("Loading saved entries:", savedEntries);
       setEntries(JSON.parse(savedEntries));
     }
   }, []);
 
+  // Save to localStorage when `entries` changes
   useEffect(() => {
-    localStorage.setItem("journalEntries", JSON.stringify(entries));
+    // Prevent saving immediately after initialization with empty data
+    if (entries.length > 0) {
+      console.log("Saving entries to localStorage:", JSON.stringify(entries));
+      localStorage.setItem("journalEntries", JSON.stringify(entries));
+    }
   }, [entries]);
 
   const addEntry = () => {

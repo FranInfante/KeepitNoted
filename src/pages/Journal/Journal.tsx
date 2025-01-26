@@ -25,9 +25,7 @@ function Journal() {
     }
   }, []);
 
-  // Save to localStorage when `entries` changes
   useEffect(() => {
-    // Prevent saving immediately after initialization with empty data
     if (entries.length > 0) {
       console.log("Saving entries to localStorage:", JSON.stringify(entries));
       localStorage.setItem("journalEntries", JSON.stringify(entries));
@@ -35,7 +33,7 @@ function Journal() {
   }, [entries]);
 
   const addEntry = () => {
-    if (!content.trim() || !subject.trim()) return; // Prevent empty entries
+    if (!content.trim() || !subject.trim()) return;
     const newEntry = {
       date: new Date().toISOString().split("T")[0],
       subject,

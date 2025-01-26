@@ -20,14 +20,12 @@ function Journal() {
   useEffect(() => {
     const savedEntries = localStorage.getItem("journalEntries");
     if (savedEntries) {
-      console.log("Loading saved entries:", savedEntries);
       setEntries(JSON.parse(savedEntries));
     }
   }, []);
 
   useEffect(() => {
     if (entries.length > 0) {
-      console.log("Saving entries to localStorage:", JSON.stringify(entries));
       localStorage.setItem("journalEntries", JSON.stringify(entries));
     }
   }, [entries]);

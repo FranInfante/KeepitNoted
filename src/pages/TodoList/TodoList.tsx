@@ -22,7 +22,9 @@ function TodoList() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("todoLists", JSON.stringify(todoLists));
+    if (todoLists.length > 0) {
+      localStorage.setItem("todoLists", JSON.stringify(todoLists));
+    }
   }, [todoLists]);
 
   const addNewList = (name: string) => {
@@ -46,14 +48,16 @@ function TodoList() {
     setTodoLists(updatedLists);
   };
 
-  const updateTasks = (tasks: { topic: string; task: string; completed: boolean }[]) => {
+  const updateTasks = (
+    tasks: { topic: string; task: string; completed: boolean }[]
+  ) => {
     if (currentListIndex !== null) {
       const updatedLists = [...todoLists];
       updatedLists[currentListIndex].tasks = tasks;
       setTodoLists(updatedLists);
     }
   };
-  
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-400 to-blue-700 p-6 text-white">
       <BackToPage to="/" />
@@ -61,7 +65,9 @@ function TodoList() {
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-yellow-300 mb-6 text-center">
           To-Do Lists
         </h1>
-        <p className="text-lg text-center mb-8">Create and organize your tasks by category!</p>
+        <p className="text-lg text-center mb-8">
+          Create and organize your tasks by category!
+        </p>
 
         <NewListForm onAdd={addNewList} />
 

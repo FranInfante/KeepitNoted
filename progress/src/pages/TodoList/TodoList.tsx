@@ -2,7 +2,7 @@ import BackToPage from "../../components/BackToPage";
 import NewListForm from "./TodoListcomponents/NewListForm";
 import TodoListItem from "./TodoListcomponents/TodoListItem";
 import TaskModal from "./TodoListcomponents/TaskModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function TodoList() {
   const [todoLists, setTodoLists] = useState<
@@ -13,6 +13,17 @@ function TodoList() {
   >([]);
   const [currentListIndex, setCurrentListIndex] = useState<number | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    const savedLists = localStorage.getItem("todoLists");
+    if (savedLists) {
+      setTodoLists(JSON.parse(savedLists));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("todoLists", JSON.stringify(todoLists));
+  }, [todoLists]);
 
   const addNewList = (name: string) => {
     if (!name.trim()) return;
